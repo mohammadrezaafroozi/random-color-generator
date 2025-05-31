@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: cursive;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            button{
+                margin-bottom: 50px;
+                width: 200px;
+                height: 60px;
+                border-radius: 30px;
+                border: none;
+                background-color: salmon;
+                color: white;
+                font-size: 20px;
+                font-family: cursive;
+                padding: 10px;
+                
+            }
+            input{
+                width: 200px;
+                
+            }
+        }
+    </style>
+</head>
+
+<body>
+<button id="btn">click to stop</button>
+<input type="range"  id="range" min="0" max="1000">
+<h2> change color in <span id="show"></span> ms</h2>
+
+<script>
+const btn = document.getElementById('btn')
+const range = document.getElementById('range')
+const show = document.getElementById('show')
+
+let colors =[ 'yellow', 'blue', 'red', 'green', 'pink', 'salmon', 'olivedrab', 'purple', 'black']
+
+
+let intervalId = null;
+
+range.addEventListener('change', ()=>{
+    show.innerHTML = range.value;
+
+    
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+
+    intervalId = setInterval(()=>{
+        let randomColors = Math.floor((Math.random()*colors.length));
+        document.body.style.backgroundColor = colors[randomColors];
+    }, range.value);
+});
+
+
+
+btn.addEventListener('click', ()=>{
+    if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+    }
+});
+
+
+</script>
+</body>
+
+</html>
